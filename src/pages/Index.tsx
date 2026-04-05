@@ -289,6 +289,7 @@ export default function Index() {
   const [playing, setPlaying] = useState<Planet | null>(null);
   const [planets, setPlanets] = useState<Planet[]>(INITIAL_PLANETS);
   const [badges, setBadges] = useState<Badge[]>(INITIAL_BADGES);
+  const [showVictory, setShowVictory] = useState(false);
 
   const totalStars = planets.reduce((s, p) => s + p.stars, 0);
   const completedCount = planets.filter((p) => p.completed).length;
@@ -324,7 +325,19 @@ export default function Index() {
       return next;
     });
 
+    const newPlanets = planets.map((p) =>
+      p.id === planetId ? { ...p, completed: true, stars: Math.max(p.stars, stars) } : p
+    );
+    const allDone = newPlanets.every((p) => p.completed);
     setPlaying(null);
+    if (allDone) setTimeout(() => setShowVictory(true), 300);
+  }
+
+  function resetProgress() {
+    setPlanets(INITIAL_PLANETS);
+    setBadges(INITIAL_BADGES);
+    setShowVictory(false);
+    setPage("map");
   }
 
   return (
@@ -340,6 +353,26 @@ export default function Index() {
       `}</style>
 
       {playing && <GameScreen planet={playing} onFinish={finishGame} />}
+
+      {showVictory && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: "rgba(0,0,0,0.92)" }}>
+          <div className="pop-in w-full max-w-sm rounded-3xl p-8 text-center" style={{ background: "linear-gradient(160deg, #0d1440, #190d40)", border: "2px solid rgba(255,215,0,0.3)", boxShadow: "0 0 80px rgba(255,215,0,0.2), 0 20px 60px rgba(0,0,0,0.8)" }}>
+            <div className="text-7xl mb-4" style={{ animation: "floatY 3s ease-in-out infinite" }}>🏆</div>
+            <h2 className="text-3xl font-black text-white mb-2" style={{ fontFamily: "'Russo One', sans-serif" }}>Миссия выполнена!</h2>
+            <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>Ты прошёл все планеты Space English!</p>
+            <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.4)" }}>Собрано звёзд: {planets.reduce((s, p) => s + p.stars, 0)} из {planets.length * 3}</p>
+            <div className="flex justify-center gap-2 mb-8">
+              {planets.map((p) => (
+                <span key={p.id} className="text-xl" style={{ filter: "drop-shadow(0 0 6px #FFD700)" }}>{p.icon}</span>
+              ))}
+            </div>
+            <button onClick={resetProgress} className="w-full py-4 rounded-2xl font-black text-white text-lg transition-all hover:scale-105 active:scale-95" style={{ background: "linear-gradient(135deg, #f97316, #ec4899, #a855f7)", boxShadow: "0 8px 32px rgba(249,115,22,0.4)" }}>
+              🔄 Начать заново
+            </button>
+            <p className="mt-3 text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>Весь прогресс будет сброшен</p>
+          </div>
+        </div>
+      )}
 
       {/* HEADER */}
       <header className="relative z-20 flex items-center justify-between px-4 py-2.5" style={{ background: "rgba(5,5,20,0.85)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
