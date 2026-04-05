@@ -23,20 +23,20 @@ type Badge = {
 };
 
 const PLANETS: Planet[] = [
-  { id: "articles", name: "Планета Артиклей", topic: "Articles: a, an, the", icon: "📖", color: "#4FC3F7", glow: "#4FC3F7", unlocked: true, completed: true, stars: 3, x: "18%", y: "22%" },
-  { id: "present-simple", name: "Планета Времени", topic: "Present Simple", icon: "⏱️", color: "#FFD54F", glow: "#FFB300", unlocked: true, completed: true, stars: 2, x: "60%", y: "14%" },
+  { id: "articles", name: "Планета Артиклей", topic: "Articles: a, an, the", icon: "📖", color: "#4FC3F7", glow: "#4FC3F7", unlocked: true, completed: false, stars: 0, x: "18%", y: "22%" },
+  { id: "present-simple", name: "Планета Времени", topic: "Present Simple", icon: "⏱️", color: "#FFD54F", glow: "#FFB300", unlocked: true, completed: false, stars: 0, x: "60%", y: "14%" },
   { id: "questions", name: "Планета Вопросов", topic: "Question Words", icon: "❓", color: "#CE93D8", glow: "#AB47BC", unlocked: true, completed: false, stars: 0, x: "80%", y: "30%" },
   { id: "sports", name: "Планета Спорта", topic: "Sports Vocabulary", icon: "⚽", color: "#A5D6A7", glow: "#43A047", unlocked: true, completed: false, stars: 0, x: "85%", y: "58%" },
-  { id: "jobs", name: "Планета Профессий", topic: "Jobs & Professions", icon: "👷", color: "#FFCC80", glow: "#FB8C00", unlocked: false, completed: false, stars: 0, x: "62%", y: "74%" },
-  { id: "appearance", name: "Планета Внешности", topic: "Appearance", icon: "💄", color: "#F48FB1", glow: "#E91E63", unlocked: false, completed: false, stars: 0, x: "35%", y: "80%" },
-  { id: "character", name: "Планета Характера", topic: "Character & Traits", icon: "🧠", color: "#EF9A9A", glow: "#E53935", unlocked: false, completed: false, stars: 0, x: "12%", y: "64%" },
-  { id: "home", name: "Финальная Планета", topic: "Mission Complete! 🎉", icon: "🌍", color: "#80DEEA", glow: "#00BCD4", unlocked: false, completed: false, stars: 0, x: "10%", y: "40%" },
+  { id: "jobs", name: "Планета Профессий", topic: "Jobs & Professions", icon: "👷", color: "#FFCC80", glow: "#FB8C00", unlocked: true, completed: false, stars: 0, x: "62%", y: "74%" },
+  { id: "appearance", name: "Планета Внешности", topic: "Appearance", icon: "💄", color: "#F48FB1", glow: "#E91E63", unlocked: true, completed: false, stars: 0, x: "35%", y: "80%" },
+  { id: "character", name: "Планета Характера", topic: "Character & Traits", icon: "🧠", color: "#EF9A9A", glow: "#E53935", unlocked: true, completed: false, stars: 0, x: "12%", y: "64%" },
+  { id: "home", name: "Финальная Планета", topic: "Mission Complete! 🎉", icon: "🌍", color: "#80DEEA", glow: "#00BCD4", unlocked: true, completed: false, stars: 0, x: "10%", y: "40%" },
 ];
 
 const BADGES: Badge[] = [
-  { id: "first-star", name: "Первая звезда", emoji: "⭐", description: "Получи первую звезду", earned: true },
-  { id: "article-master", name: "Мастер артиклей", emoji: "📚", description: "Пройди планету артиклей", earned: true },
-  { id: "time-wizard", name: "Волшебник времени", emoji: "⏰", description: "Пройди Present Simple", earned: true },
+  { id: "first-star", name: "Первая звезда", emoji: "⭐", description: "Получи первую звезду", earned: false },
+  { id: "article-master", name: "Мастер артиклей", emoji: "📚", description: "Пройди планету артиклей", earned: false },
+  { id: "time-wizard", name: "Волшебник времени", emoji: "⏰", description: "Пройди Present Simple", earned: false },
   { id: "question-hero", name: "Герой вопросов", emoji: "❓", description: "Пройди планету вопросов", earned: false },
   { id: "sport-champ", name: "Чемпион спорта", emoji: "🏆", description: "Пройди спортивную планету", earned: false },
   { id: "explorer", name: "Исследователь", emoji: "🚀", description: "Открой 5 планет", earned: false },
@@ -179,11 +179,7 @@ export default function Index() {
             );
           })}
 
-          {/* Mascot */}
-          <div className="absolute pointer-events-none float-slow" style={{ bottom: "6%", left: "50%", transform: "translateX(-50%)", textAlign: "center" }}>
-            <div className="text-5xl">👨‍🚀</div>
-            <div className="mt-1 text-xs font-bold text-white/60 rounded-full px-3 py-0.5" style={{ background: "rgba(0,0,0,0.45)" }}>Космонавт Алёша</div>
-          </div>
+
 
           {/* Planet Modal */}
           {selected && (
